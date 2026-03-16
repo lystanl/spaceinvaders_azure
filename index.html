@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Space Invaders</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; background: #000; }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100%;
+      padding: 1rem;
+    }
+
+    #play-area {
+      border: 2px solid #1a1a1a;
+      background: #000;
+      line-height: 0;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    #myCanvas {
+      display: block;
+      width: 100%;
+      height: auto;
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+    }
+
+    /* Dialogs */
+    dialog {
+      background: #080808;
+      border: 2px solid #1e1e1e;
+      color: #fff;
+      font-family: monospace;
+      padding: 1.5rem;
+      width: min(340px, calc(100% - 2rem));
+    }
+    dialog::backdrop { background: rgba(0,0,0,0.85); }
+
+    dialog h2 {
+      font-size: 1rem;
+      margin-bottom: 0.8rem;
+      text-align: center;
+      letter-spacing: 2px;
+    }
+    dialog p {
+      font-size: 0.7rem;
+      color: #777;
+      margin-bottom: 0.8rem;
+      line-height: 1.8;
+      text-align: center;
+    }
+    .dialog-actions {
+      display: flex;
+      justify-content: center;
+      gap: 0.6rem;
+    }
+    .btn {
+      appearance: none;
+      font-family: monospace;
+      font-size: 0.7rem;
+      border: 2px solid #1a4a1a;
+      background: #0a0a0a;
+      color: #39ff14;
+      padding: 0.45rem 0.8rem;
+      cursor: pointer;
+      letter-spacing: 1px;
+      transition: background 0.1s;
+    }
+    .btn:hover  { background: #0f1f0f; }
+    .btn:active { transform: scale(0.96); }
+    :focus-visible { outline: 2px solid #39ff14; outline-offset: 2px; }
+
+    .final-score {
+      display: block;
+      font-size: 1.6rem;
+      color: #39ff14;
+      text-align: center;
+      margin: 0.4rem 0 1rem;
+      text-shadow: 0 0 14px #39ff14;
+      font-family: monospace;
+    }
+
+    footer {
+      margin-top: 0.6rem;
+      text-align: center;
+      font-size: 0.55rem;
+      color: #333;
+      font-family: monospace;
+      max-width: 600px;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="play-area">
+    <canvas id="myCanvas" width="600" height="520"
+            role="img" aria-label="Space Invaders game world">
+    
+    </canvas>
+  </div>
+
+  <!-- Game Over Dialog -->
+  <dialog id="gameOverDialog" aria-labelledby="gameOverTitle">
+    <form method="dialog">
+      <h2 id="gameOverTitle" style="color:#ff2222;text-shadow:0 0 8px #ff2222;">GAME OVER</h2>
+      <p>FINAL SCORE</p>
+      <output class="final-score" id="finalScore">0</output>
+      <div class="dialog-actions">
+        <button type="submit" value="restart" class="btn">PLAY AGAIN</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Wave Clear Dialog -->
+  <dialog id="waveClearDialog" aria-labelledby="waveClearTitle">
+    <form method="dialog">
+      <h2 id="waveClearTitle" style="color:#ffe600;text-shadow:0 0 8px #ffe600;">WAVE CLEAR!</h2>
+      <p id="waveClearMsg">Prepare for Wave 2...</p>
+      <div class="dialog-actions">
+        <button type="submit" value="next" class="btn">NEXT WAVE</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Victory Dialog -->
+  <dialog id="victoryDialog" aria-labelledby="victoryTitle">
+    <form method="dialog">
+      <h2 id="victoryTitle" style="color:#39ff14;text-shadow:0 0 12px #39ff14;">YOU WIN!</h2>
+      <p>Earth is saved, Commander.</p>
+      <p>FINAL SCORE</p>
+      <output class="final-score" id="finalScoreVictory">0</o>
+      <div class="dialog-actions">
+        <button type="submit" value="restart" class="btn">PLAY AGAIN</button>
+      </div>
+    </form>
+  </dialog>
+
+  <footer>Stanley Ly &middot; Assignment #2 &middot; Space Invaders</footer>
+
+
+  <script defer src="app.js"></script>
+</body>
+</html>
